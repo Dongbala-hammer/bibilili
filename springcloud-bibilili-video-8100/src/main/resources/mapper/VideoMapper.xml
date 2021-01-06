@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.com.six.dao.VideoMapper">
+    <resultMap id="BaseResult" type="com.com.six.pojo.Video">
+        <id property="id" column="v_id"></id>
+        <result property="vAuthor" column="v_author"></result>
+        <result property="vCover" column="v_cover"></result>
+        <result property="vName" column="v_name"></result>
+        <result property="vTypeOne" column="v_type_one"></result>
+        <result property="vVolume" column="v_colume"></result>
+    </resultMap>
+    <select id="findAll" resultMap="BaseResult">
+        select * from video
+        <if test="typeName!=null and typeName!=''">
+            where v_type_one=#{typeName}
+        </if>
+    </select>
+
+    <select id="extensionFind" resultMap="BaseResult">
+        SELECT * FROM video ORDER BY RAND() LIMIT 6
+    </select>
+</mapper>
