@@ -57,8 +57,11 @@ public class RoomMessage {
     @Column(name = "pull_url")
     private String pullUrl;
 
+    private String pic;
+
     @Column(name = "uid")
     private Integer uid;
+
 
 
 }

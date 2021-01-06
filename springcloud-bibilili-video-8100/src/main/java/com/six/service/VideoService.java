@@ -9,7 +9,4 @@ import java.util.Map;
  */
 public interface VideoService {
     BaseRes findAllVideo(Map map);
-
-    BaseRes extensionFind();
-
 }

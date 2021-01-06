@@ -10,6 +10,7 @@ spring:
           uri: https://github.com/Dongbala-hammer/bibilili-config.git # 配置git仓库的地址
           search-paths: bibilili-config
           default-label: main
+
 eureka:
   client:
     serviceUrl:

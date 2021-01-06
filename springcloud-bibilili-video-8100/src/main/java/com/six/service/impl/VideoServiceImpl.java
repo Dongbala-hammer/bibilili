@@ -4,7 +4,6 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.six.common.BaseRes;
 import com.six.dao.VideoMapper;
-import com.six.pojo.Tag;
 import com.six.pojo.Video;
 import com.six.service.VideoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,15 +36,4 @@ public class VideoServiceImpl implements VideoService {
         baseRes.setTotal(pageInfo.getTotal());
         return baseRes;
     }
-
-    @Override
-    public BaseRes extensionFind() {
-        List<Video> videoList = videoMapper.extensionFind();
-        BaseRes baseRes = new BaseRes();
-        baseRes.setCode(200);
-        baseRes.setData(videoList);
-        baseRes.setMsg("查询成功");
-        return baseRes;
-    }
-
 }

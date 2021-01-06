@@ -13,8 +13,8 @@
         <module>springcloud-bibilili-video-8100</module>
         <module>springcloud-bibilili-pojo</module>
         <module>springcloud-bibilili-zuul-9000</module>
-        <module>springcloud-bibilili-tag-8200</module>
         <module>bilibili-utils</module>
+        <module>bilibili-live-8081</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>

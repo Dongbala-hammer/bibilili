@@ -57,7 +57,7 @@ public class MyZuulFilter extends ZuulFilter {
         System.out.println("requestURL = " + requestURI);
         String[] split = requestURI.split("/");
         for (String s : split) {
-            if (s.equals("editStatus")){
+            if (s.equals("findByLimit")){
                 return false;
             }
         }

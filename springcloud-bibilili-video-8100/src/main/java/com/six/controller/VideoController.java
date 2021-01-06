@@ -18,9 +18,8 @@ public class VideoController {
     public BaseRes findAllVideo(@RequestBody Map map) {
         return videoService.findAllVideo(map);
     }
-
-    @PostMapping("/extensionFind")
-    public BaseRes extensionFind() {
-        return videoService.extensionFind();
-    }
+/*    @PostMapping("/animationfindAll")
+    public BaseRes animationfindAll(@RequestBody Map map) {
+        return videoService.animationfindAll(map);
+    }*/
 }
