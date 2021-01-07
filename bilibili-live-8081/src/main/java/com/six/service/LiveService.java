@@ -17,4 +17,6 @@ public interface LiveService {
     ResultResp findRoomByUserId(HttpServletRequest request);
 
     ResultResp findByLimit(Integer page, Integer size);
+
+    ResultResp findRoomById(Integer id);
 }

@@ -4,7 +4,6 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.six.dao.LiveRepository;
 import com.six.pojo.vo.RoomMessage;
-import com.six.service.LiveService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,7 +74,7 @@ public class TestUtils {
 
     @Test
     public void testLimit(){
-        PageRequest pageRequest = new  PageRequest(0, 3);
+        PageRequest pageRequest = new  PageRequest(0, 5);
         Page<RoomMessage> all = liveRepository.findAll(pageRequest);
         System.out.println(all.getTotalElements());
         System.out.println(all.getContent());

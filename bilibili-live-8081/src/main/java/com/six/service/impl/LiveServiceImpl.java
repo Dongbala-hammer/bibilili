@@ -9,7 +9,6 @@ import com.six.service.LiveService;
 import com.six.utils.JwtUtils;
 import com.six.utils.MyUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -17,6 +16,7 @@ import org.springframework.stereotype.Service;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * @Author ZhouJinDong
@@ -111,7 +111,7 @@ public class LiveServiceImpl implements LiveService {
 
     @Override
     public ResultResp findByLimit(Integer page, Integer size) {
-        PageRequest pageRequest = new PageRequest(page, size);
+        PageRequest pageRequest = new  PageRequest(page, size);
         Page<RoomMessage> all = liveRepository.findAll(pageRequest);
         ResultResp resultResp = new ResultResp();
         if (all == null){
@@ -123,6 +123,26 @@ public class LiveServiceImpl implements LiveService {
         resultResp.setMessage("分页查询成功！！");
         resultResp.setData(all.getContent());
         resultResp.setTotal(all.getTotalElements());
+        return resultResp;
+    }
+
+    @Override
+    public ResultResp findRoomById(Integer id) {
+        ResultResp resultResp = new ResultResp();
+        if (id == null && "".equals(id)){
+            resultResp.setCode(2003);
+            resultResp.setMessage("id为空");
+            return resultResp;
+        }
+        Optional<RoomMessage> byId = liveRepository.findById(id);
+        if (!byId.isPresent()){
+            resultResp.setCode(2004);
+            resultResp.setMessage("没有查到");
+            return resultResp;
+        }
+        resultResp.setCode(200);
+        resultResp.setData(byId.get());
+        resultResp.setMessage("查到该直播");
         return resultResp;
     }
 

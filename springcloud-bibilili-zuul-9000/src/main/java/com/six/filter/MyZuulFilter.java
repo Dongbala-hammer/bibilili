@@ -60,6 +60,9 @@ public class MyZuulFilter extends ZuulFilter {
             if (s.equals("findByLimit")){
                 return false;
             }
+            if (s.equals("websocket")){
+                return false;
+            }
         }
         if (URL_LIST.contains(requestURI)){
             return false;//放行

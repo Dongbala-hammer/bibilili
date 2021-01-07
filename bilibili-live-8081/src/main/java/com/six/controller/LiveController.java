@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
 /**
  * @Author ZhouJinDong
@@ -37,6 +38,11 @@ public class LiveController {
     @RequestMapping("/findByLimit/{page}/{size}")
     public ResultResp findByLimit(@PathVariable("page")Integer page,@PathVariable("size")Integer size){
         return  liveService.findByLimit(page,size);
+    }
+
+    @RequestMapping("/findRoomById")
+    public ResultResp findRoomById(@RequestBody Map map){
+        return  liveService.findRoomById((Integer) map.get("id"));
     }
 
 
