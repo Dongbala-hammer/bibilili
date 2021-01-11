@@ -30,6 +30,7 @@ public class LiveController {
         return  liveService.openLive(roomMessage,request);
     }
 
+    //直播用户
     @RequestMapping("/findRoomByUserId")
     public ResultResp findRoomByUserId( HttpServletRequest request){
         return  liveService.findRoomByUserId(request);
@@ -40,11 +41,16 @@ public class LiveController {
         return  liveService.findByLimit(page,size);
     }
 
+    //直播表的id查找直播房间
     @RequestMapping("/findRoomById")
     public ResultResp findRoomById(@RequestBody Map map){
         return  liveService.findRoomById((Integer) map.get("id"));
     }
 
-
+    //根据前端传过来的token返回用户信息
+    @RequestMapping("/findUserByToken")
+    public ResultResp findUserByToken(HttpServletRequest request){
+        return liveService.findUserByToken(request);
+    }
 
 }

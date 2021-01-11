@@ -3,19 +3,20 @@ package com.six;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.six.dao.LiveRepository;
+import com.six.pojo.resp.Score;
 import com.six.pojo.vo.RoomMessage;
+import com.six.utils.RedisUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 /**
  * @Author ZhouJinDong
@@ -77,4 +78,40 @@ public class TestUtils {
         System.out.println(all.getTotalElements());
         System.out.println(all.getContent());
     }
+
+    @Autowired
+    RedisUtils redisUtils;
+
+    @Autowired
+    RedisTemplate redisTemplate;
+
+    @Test
+    public void testRedis(){
+//        redisUtils.ZSet("2323","zhou",23);
+//        redisUtils.ZSet("2323","li",45);
+//        redisUtils.ZSet("2323","zhang",23);
+//        redisUtils.ZSet("2323","wnag",15);
+//        redisUtils.ZSet("2323","lusen",34);
+            //拿到value，从大到小，拿不到score
+//        Set<String> strings = redisUtils.ZRevRange("2323", 0, -1);
+//        System.out.println("strings = " + strings);
+
+
+//        redisUtils.ZIncrScore("2323","zhang",100);
+
+
+        List list = new ArrayList();
+        Set<ZSetOperations.TypedTuple<String>> typedTuples = redisUtils.ZRangeWithScore("2323", 0, -1);
+        Iterator<ZSetOperations.TypedTuple<String>> iterator = typedTuples.iterator();
+        while (iterator.hasNext()){
+            ZSetOperations.TypedTuple<String> next = iterator.next();
+            list.add(new Score(next.getValue(),next.getScore()));
+        }
+        Collections.reverse(list);
+        System.out.println("list = " + list);
+
+
+    }
 }
+
+

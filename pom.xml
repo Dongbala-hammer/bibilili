@@ -20,6 +20,7 @@
         <module>bilibili-utils</module>
         <module>springcloud-bibilili-search-8300</module>
         <module>springcloud-bibilili-comment-8400</module>
+        <module>bilibili-search</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>

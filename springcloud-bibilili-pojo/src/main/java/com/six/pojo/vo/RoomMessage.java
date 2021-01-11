@@ -62,6 +62,9 @@ public class RoomMessage {
     @Column(name = "uid")
     private Integer uid;
 
+    @Column(name = "user_name")
+    private String userName;
+
 
 
 }

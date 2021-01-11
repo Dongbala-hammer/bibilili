@@ -18,7 +18,7 @@ import java.util.concurrent.CopyOnWriteArraySet;
  */
 
 @Component
-@ServerEndpoint("/websocket/{id}")
+@ServerEndpoint("/websocket/{id}/{name}")
 //此注解相当于设置访问URL
 public class WebSocket {
 
@@ -29,11 +29,13 @@ public class WebSocket {
 
 
     @OnOpen
-    public void onOpen(Session session, @PathParam(value="id")String shopId) {
+    public void onOpen(Session session, @PathParam(value="id")String shopId,@PathParam("name")String name) {
         this.session = session;
         webSockets.add(this);
         sessionPool.put(shopId, session);
-        System.out.println("【websocket消息】有新的连接，总数为:"+webSockets.size()+shopId);
+        System.out.println("【websocket消息】有新的连接，总数为:"+webSockets.size());
+
+        sendAllMessage(name+":  进入直播间");
     }
 
     @OnClose
@@ -49,10 +51,11 @@ public class WebSocket {
 
     // 此为广播消息
     public void sendAllMessage(String message) {
+
         for(WebSocket webSocket : webSockets) {
             System.out.println("【websocket消息】广播消息:"+message);
             try {
-                webSocket.session.getAsyncRemote().sendText(message+"-------后台");
+                webSocket.session.getAsyncRemote().sendText(message);
             } catch (Exception e) {
                 e.printStackTrace();
             }

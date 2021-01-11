@@ -37,6 +37,13 @@ public class MyZuulFilter extends ZuulFilter {
         URL_LIST.add("/bibilili-videotype/findVideoAllTag");
         URL_LIST.add("/bibilili-videotype/findVideoLabelByTag");
         URL_LIST.add("/bibilili-video/findVideoByTag");
+        URL_LIST.add("/bilibili-live/live/openLive");//需要登陆
+        URL_LIST.add("/bilibili-live/live/findRoomById");
+//        URL_LIST.add("/bilibili-websocket/websocket/sendAllWebSocket"); //需要登录
+        URL_LIST.add("/bilibili-live/gift/findRank");//查找直播间的用户排名
+
+
+
     }
 
     //拦截器何时进行拦截
@@ -64,12 +71,6 @@ public class MyZuulFilter extends ZuulFilter {
                 return false;
             }
             if (s.equals("websocket")){
-                return false;
-            }
-            if (s.equals("findByLimit")){
-                return false;
-            }
-            if (s.equals("findVideoById")){
                 return false;
             }
         }

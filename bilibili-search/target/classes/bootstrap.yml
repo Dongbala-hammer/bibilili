@@ -1,14 +1,11 @@
 server:
-  port: 8081
+  port: 8085
 
 spring:
   application:
-    name: bilibili-live
+    name: bilibili-search
 
 
-=======
-    name: bibilili-Comment
->>>>>>> Stashed changes:springcloud-bibilili-comment-8400/src/main/resources/bootstrap.yml
   cloud:
     config:
       #本地配置
@@ -31,7 +28,15 @@ eureka:
       defaultZone: http://47.105.162.57:8000/eureka/
   instance:
     prefer-ip-address: true
-    hostName: ${spring.cloud.client.ip-address}
+#    hostName: 10.12.154.26
     instance-id: http://${spring.cloud.client.ip-address}:${server.port}
+#    instance-id: http://10.12.154.26:${server.port}
+#    ip-address: 10.12.154.26:8081
 
+#连接es索引库的地址
+springcloud-es:
+  elasticsearch:
+    hostlist: ${eshostlist:127.0.0.1:9200} #多个结点中间用逗号分隔
 
+es:
+  index: live-message
