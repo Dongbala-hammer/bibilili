@@ -1,9 +1,9 @@
 package com.six.service.impl;
 
 
-
 import com.six.dao.LiveRepository;
 import com.six.pojo.resp.ResultResp;
+import com.six.pojo.resp.User;
 import com.six.pojo.vo.RoomMessage;
 import com.six.service.LiveService;
 import com.six.utils.JwtUtils;
@@ -35,15 +35,15 @@ public class LiveServiceImpl implements LiveService {
     @Autowired
     MyUtils myUtils;
 
-//    @Value("${push.url}")
-    private String pushUrl="rtmp://8.133.185.94:1935/live/";
+    //    @Value("${push.url}")
+    private String pushUrl = "rtmp://8.133.185.94:1935/live/";
 
     @Override
     public ResultResp openLive(RoomMessage roomMessage, HttpServletRequest request) {
         ResultResp resultResp = new ResultResp();
-        if (roomMessage.getId() != null ){
+        if (roomMessage.getId() != null) {
             RoomMessage roomMessage1 = liveRepository.saveAndFlush(roomMessage);
-            if (roomMessage1 == null){
+            if (roomMessage1 == null) {
                 resultResp.setCode(2003);
                 resultResp.setMessage("修改失败！！");
                 return resultResp;
@@ -54,27 +54,27 @@ public class LiveServiceImpl implements LiveService {
             return resultResp;
         }
         System.out.println("roomMessage = " + roomMessage.getId());
-
-        Cookie[] cookies = request.getCookies();
-        String token = myUtils.getToken(cookies);
-        if (token == null){
-            resultResp.setCode(2003);
-            resultResp.setMessage("token为空");
-            return resultResp;
-        }
-        Map map = jwtUtils.Verify(token);
-        Integer uid = (Integer) map.get("id");
+        //从 token 获取用户id
+//        Cookie[] cookies = request.getCookies();
+//        String token = myUtils.getToken(cookies);
+//        if (token == null){
+//            resultResp.setCode(2003);
+//            resultResp.setMessage("token为空");
+//            return resultResp;
+//        }
+//        Map map = jwtUtils.Verify(token);
+//        Integer uid = (Integer) map.get("id");
         String number = myUtils.getNumber();
         String code = myUtils.getUUID();
 
         roomMessage.setPushUrl(pushUrl);
         roomMessage.setLiveCode(code);
-        roomMessage.setPullUrl(pushUrl+code);
+        roomMessage.setPullUrl(pushUrl + code);
         roomMessage.setRoomNumber(number);
-        roomMessage.setUid(uid);
+        roomMessage.setUid(3);
 
         RoomMessage roomMessage1 = liveRepository.saveAndFlush(roomMessage);
-        if (roomMessage1 == null){
+        if (roomMessage1 == null) {
             resultResp.setCode(2005);
             resultResp.setMessage("数据库写入失败！");
             return resultResp;
@@ -90,7 +90,7 @@ public class LiveServiceImpl implements LiveService {
         ResultResp resultResp = new ResultResp();
         Cookie[] cookies = request.getCookies();
         String token = myUtils.getToken(cookies);
-        if (token == null){
+        if (token == null) {
             resultResp.setCode(2003);
             resultResp.setMessage("token为空");
             return resultResp;
@@ -98,7 +98,7 @@ public class LiveServiceImpl implements LiveService {
         Map map = jwtUtils.Verify(token);
         Integer uid = (Integer) map.get("id");
         RoomMessage roomMessage = liveRepository.findByUid(uid);
-        if (roomMessage == null){
+        if (roomMessage == null) {
             resultResp.setCode(2004);
             resultResp.setMessage("没有开通直播功能！！");
             return resultResp;
@@ -111,10 +111,10 @@ public class LiveServiceImpl implements LiveService {
 
     @Override
     public ResultResp findByLimit(Integer page, Integer size) {
-        PageRequest pageRequest = new  PageRequest(page, size);
+        PageRequest pageRequest = new PageRequest(page, size);
         Page<RoomMessage> all = liveRepository.findAll(pageRequest);
         ResultResp resultResp = new ResultResp();
-        if (all == null){
+        if (all == null) {
             resultResp.setCode(2003);
             resultResp.setMessage("分页查询失败！");
             return resultResp;
@@ -129,13 +129,13 @@ public class LiveServiceImpl implements LiveService {
     @Override
     public ResultResp findRoomById(Integer id) {
         ResultResp resultResp = new ResultResp();
-        if (id == null && "".equals(id)){
+        if (id == null || "".equals(id)) {
             resultResp.setCode(2003);
-            resultResp.setMessage("id为空");
+            resultResp.setMessage("直播间的房间号id为空");
             return resultResp;
         }
         Optional<RoomMessage> byId = liveRepository.findById(id);
-        if (!byId.isPresent()){
+        if (!byId.isPresent()) {
             resultResp.setCode(2004);
             resultResp.setMessage("没有查到");
             return resultResp;
@@ -143,6 +143,29 @@ public class LiveServiceImpl implements LiveService {
         resultResp.setCode(200);
         resultResp.setData(byId.get());
         resultResp.setMessage("查到该直播");
+        return resultResp;
+    }
+
+    @Override
+    public ResultResp findUserByToken(HttpServletRequest request) {
+        ResultResp resultResp = new ResultResp();
+        Cookie[] cookies = request.getCookies();
+        String token = myUtils.getToken(cookies);
+        if (token == null) {
+            resultResp.setCode(2003);
+            resultResp.setMessage("token为空");
+            return resultResp;
+        }
+        Map map = jwtUtils.Verify(token);
+        Integer uid = (Integer) map.get("id");
+        String username = (String) map.get("username");
+        User user = new User();
+        user.setUid(uid);
+        user.setUsername(username);
+
+        resultResp.setCode(200);
+        resultResp.setMessage("从token中获取用户信息成功！");
+        resultResp.setData(user);
         return resultResp;
     }
 

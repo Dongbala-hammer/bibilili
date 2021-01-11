@@ -16,6 +16,7 @@
         <module>bilibili-utils</module>
         <module>bilibili-live-8081</module>
         <module>bilibili-websocket</module>
+        <module>bilibili-search</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>

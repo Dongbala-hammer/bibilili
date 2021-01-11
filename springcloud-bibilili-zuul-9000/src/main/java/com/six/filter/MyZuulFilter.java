@@ -31,7 +31,11 @@ public class MyZuulFilter extends ZuulFilter {
     MyUtils myUtils;
 
     public MyZuulFilter(){
-        URL_LIST.add("/bilibili-live/live/openve");
+        URL_LIST.add("/bilibili-live/live/openLive");//需要登陆
+        URL_LIST.add("/bilibili-live/live/findRoomById");
+//        URL_LIST.add("/bilibili-websocket/websocket/sendAllWebSocket"); //需要登录
+        URL_LIST.add("/bilibili-live/gift/findRank");//查找直播间的用户排名
+
 
 
     }
@@ -60,9 +64,10 @@ public class MyZuulFilter extends ZuulFilter {
             if (s.equals("findByLimit")){
                 return false;
             }
-            if (s.equals("websocket")){
+            if (s.equals("skey")){
                 return false;
             }
+
         }
         if (URL_LIST.contains(requestURI)){
             return false;//放行
@@ -100,7 +105,7 @@ public class MyZuulFilter extends ZuulFilter {
         Map verify = jwtUtils.Verify(token);
         if (verify == null || verify.get("username") == null){
             response.setContentType("application/json;charset=utf-8");
-            resultResp.setCode(302);
+            resultResp.setCode(303);
             resultResp.setMessage("登录信息过期，请重新登录！！");
             PrintWriter writer = null;
             try {
