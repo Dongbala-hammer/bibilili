@@ -9,4 +9,15 @@ import java.util.Map;
  */
 public interface VideoService {
     BaseRes findAllVideo(Map map);
+<<<<<<< Updated upstream
+=======
+
+    BaseRes extensionFind(Integer num);
+
+    BaseRes findVideoByTag(Map map);
+
+    BaseRes findVideoById(Integer id);
+
+    BaseRes findAllDesc(Map map);
+>>>>>>> Stashed changes
 }

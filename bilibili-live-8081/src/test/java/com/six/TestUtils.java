@@ -56,8 +56,6 @@ public class TestUtils {
         Map map = new HashMap();
         map.put("id",2);
         map.put("username","zhou");
-
-
         String sign = JWT.create().withHeader(headMap).
                 withSubject("token").withIssuer("qf-live")
                 .withClaim("body", map)

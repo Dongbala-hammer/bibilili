@@ -32,8 +32,11 @@ public class MyZuulFilter extends ZuulFilter {
 
     public MyZuulFilter(){
         URL_LIST.add("/bilibili-live/live/openve");
-
-
+        URL_LIST.add("/bibilili-video/findAllVideo");
+        URL_LIST.add("/bibilili-video/extensionFind");
+        URL_LIST.add("/bibilili-videotype/findVideoAllTag");
+        URL_LIST.add("/bibilili-videotype/findVideoLabelByTag");
+        URL_LIST.add("/bibilili-video/findVideoByTag");
     }
 
     //拦截器何时进行拦截
@@ -61,6 +64,12 @@ public class MyZuulFilter extends ZuulFilter {
                 return false;
             }
             if (s.equals("websocket")){
+                return false;
+            }
+            if (s.equals("findByLimit")){
+                return false;
+            }
+            if (s.equals("findVideoById")){
                 return false;
             }
         }

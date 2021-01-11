@@ -9,12 +9,35 @@
         <result property="vCover" column="v_cover"></result>
         <result property="vName" column="v_name"></result>
         <result property="vTypeOne" column="v_type_one"></result>
-        <result property="vVolume" column="v_colume"></result>
+        <result property="vVolume" column="v_volume"></result>
+        <result property="vCreateDate" column="v_createDate"></result>
+        <result property="vDes" column="v_des"></result>
+        <result property="vUrl" column="v_url"></result>
     </resultMap>
     <select id="findAll" resultMap="BaseResult">
         select * from video
         <if test="typeName!=null and typeName!=''">
             where v_type_one=#{typeName}
         </if>
+        <if test="order!=null and order!=''">
+            order by v_volume desc
+        </if>
     </select>
+<<<<<<< Updated upstream
+=======
+    <select id="extensionFind" resultMap="BaseResult">
+        SELECT * FROM video ORDER BY RAND() LIMIT #{number}
+    </select>
+    <select id="findVideoByTag" resultMap="BaseResult">
+        SELECT v.* FROM `tag_mid_video` tmv,tag t,video v where t.t_id=tmv.t_id and v.v_id=tmv.v_id and t.t_id=#{tagId}
+    </select>
+
+    <select id="findVideoById" resultMap="BaseResult">
+        select * from video where v_id=#{id}
+    </select>
+
+    <select id="findAllDesc" resultMap="BaseResult">
+        select * from video where v_type_one=#{type} order by v_volume desc
+    </select>
+>>>>>>> Stashed changes
 </mapper>

@@ -3,9 +3,13 @@ server:
 
 spring:
   application:
+<<<<<<< Updated upstream:bilibili-live-8081/src/main/resources/bootstrap.yml
     name: bilibili-live
 
 
+=======
+    name: bibilili-videotype
+>>>>>>> Stashed changes:springcloud-bibilili-tag-8200/target/classes/bootstrap.yml
   cloud:
     config:
       #本地配置

@@ -2,6 +2,8 @@ package com.six.pojo;
 
 import lombok.Data;
 
+import java.util.Date;
+
 /**
  * @author ah
  */
@@ -11,6 +13,9 @@ public class Video {
     private String vName;
     private String vTypeOne;
     private String vAuthor;
-    private String vVolume;
+    private Long vVolume;
     private String vCover;
+    private Date vCreateDate;
+    private String vUrl;
+    private String vDes;
 }
