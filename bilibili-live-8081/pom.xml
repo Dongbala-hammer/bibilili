@@ -8,14 +8,7 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-<<<<<<< Updated upstream:bilibili-live-8081/pom.xml
-
     <artifactId>bilibili-live-8081</artifactId>
-
-
-=======
-    <artifactId>springcloud-bibilili-videoType-8200</artifactId>
->>>>>>> Stashed changes:springcloud-bibilili-videoType-8200/pom.xml
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>

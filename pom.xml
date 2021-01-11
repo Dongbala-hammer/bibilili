@@ -13,16 +13,13 @@
         <module>springcloud-bibilili-video-8100</module>
         <module>springcloud-bibilili-pojo</module>
         <module>springcloud-bibilili-zuul-9000</module>
-<<<<<<< Updated upstream
         <module>bilibili-utils</module>
         <module>bilibili-live-8081</module>
         <module>bilibili-websocket</module>
-=======
         <module>springcloud-bibilili-videoType-8200</module>
         <module>bilibili-utils</module>
         <module>springcloud-bibilili-search-8300</module>
         <module>springcloud-bibilili-comment-8400</module>
->>>>>>> Stashed changes
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
